@@ -1,11 +1,13 @@
 # integrador_bd1
 
 Tema: Manejo de permisos a nivel de usuarios de base de datos.
+
 Informe: https://docs.google.com/document/d/17G7nJ_ajYTsUWLx2RnNbU1nVHddfxxEtUv9bRS_G1w8/edit
-Objetivos:
+
+# Objetivos:
 
 Entender conceptualmente el significado.
-Tareas: 
+## Tareas: 
 
 Crear un documento de acuerdo al modelo existente en el aula virtual.
 
