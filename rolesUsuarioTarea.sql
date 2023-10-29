@@ -1,10 +1,10 @@
 
 go
-create login Benn with password='Password123';
+create login benn with password='Password123';
 create login artur with password='Password123';
 
 
-create user benn for login Benn
+create user benn for login benn
 create user artur for login artur
 
 alter role db_datareader add member benn
