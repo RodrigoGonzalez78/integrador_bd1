@@ -2,8 +2,6 @@
 
 Tema: Manejo de permisos a nivel de usuarios de base de datos.
 
-Informe: https://docs.google.com/document/d/17G7nJ_ajYTsUWLx2RnNbU1nVHddfxxEtUv9bRS_G1w8/edit
-
 # Objetivos:
 
 Entender conceptualmente el significado.
