@@ -3,14 +3,15 @@ go
 create login benn with password='Password123';
 create login artur with password='Password123';
 
-
+--creamos usuarios con los long in anteriores
 create user benn for login benn
 create user artur for login artur
-
+--asignamos roles a los usuarios
 alter role db_datareader add member benn
 alter role db_ddladmin add artur
 
 go
+-- creamos el procedimiento insertarAdministrador
 create procedure insertarAdministrador
 @apeynom varchar(50),
 @viveahi varchar(1),

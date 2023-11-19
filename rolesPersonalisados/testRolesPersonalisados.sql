@@ -19,7 +19,7 @@ REVERT;
 
 
 /*
-Testeo el funcionamiento del role de diseñador
+Testeo el funcionamiento del role de diseÃ±ador
 */
 EXECUTE AS USER = 'UsuarioDisenador';
 CREATE TABLE tablaEjemplo (ID INT, Nombre VARCHAR(50));
@@ -30,4 +30,13 @@ SELECT * FROM conserje;
 */
 
 
+REVERT;
+
+
+/*
+Testeo el funcionamiento de usuario solo vista
+*/
+EXECUTE AS USER = 'usuarioVista';
+-- Consultar la vista individual
+SELECT * FROM ViewSchema.GastoView;
 REVERT;
