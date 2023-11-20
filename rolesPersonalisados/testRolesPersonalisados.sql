@@ -40,3 +40,62 @@ EXECUTE AS USER = 'usuarioVista';
 -- Consultar la vista individual
 SELECT * FROM ViewSchema.GastoView;
 REVERT;
+
+
+/*Prueba del rol de Analista*/
+BEGIN TRANSACTION;
+BEGIN TRY
+    EXECUTE AS USER = 'UsuarioAnalista';
+    SELECT * FROM conserje;
+    REVERT;
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error en la transacción. Deshaciendo cambios.';
+END CATCH;
+
+
+/*Prueba del rol de Diseñador*/
+BEGIN TRANSACTION;
+BEGIN TRY
+    EXECUTE AS USER = 'UsuarioDisenador';
+    CREATE TABLE tablaEjemplo (ID INT, Nombre VARCHAR(50));
+    ALTER TABLE tablaEjemplo ADD Descripcion VARCHAR(100);
+    REVERT;
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error en la transacción. Deshaciendo cambios.';
+END CATCH;
+
+/*Prueba con error de Diseñador*/
+BEGIN TRANSACTION;
+BEGIN TRY
+    EXECUTE AS USER = 'UsuarioDisenador';
+    CREATE TABLE tablaEjemplo (ID INT, Nombre VARCHAR(50));
+    ALTER TABLE tablaEjemplo ADD Descripcion VARCHAR(100);
+   /*Intento de SELECT en conserje (debería fallar)*/
+    SELECT * FROM conserje;
+    REVERT;
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error en la transacción. Deshaciendo cambios.';
+END CATCH;
+
+/* Prueba del usuario solo vista
+*/
+BEGIN TRANSACTION;
+BEGIN TRY
+    EXECUTE AS USER = 'usuarioVista';
+    SELECT * FROM ViewSchema.GastoView;
+    REVERT;
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error en la transacción. Deshaciendo cambios.';
+END CATCH;
