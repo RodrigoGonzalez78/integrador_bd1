@@ -104,7 +104,7 @@ END;
 	go
 CREATE TRIGGER trg_auditoria_administrador_eliminar
 ON administrador
-FOR update
+FOR delete
 AS
 BEGIN
     DECLARE
@@ -144,7 +144,6 @@ BEGIN
         @accion
     )
 END;
-
 	
 Insert into administrador(ApeyNom,viveahi,tel,sexo,fechnac) values ('nombre apellido1', 'S', '19870223', 'M','2003-05-26');
 select* from auditoria_administrador;
