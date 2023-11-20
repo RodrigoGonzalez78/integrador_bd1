@@ -175,16 +175,31 @@ begin
 	values (@apeynom,@viveahi,@tel,@s,@nacimiento);
 end
 	
-exec insertarAdministrador 'nombre apellido1', 'S', '19870223', 'M','2003-05-26';
+Create User Tomas without login
+alter role [db_datareader] add member Tomas
+BEGIN TRANSACTION;
+BEGIN TRY
+    EXECUTE AS USER = 'Tomas';
+    exec insertarAdministrador 'nom ape1', 'S', '19870223', 'M','2003-05-26';
+    REVERT;
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error en la transacción. Deshaciendo cambios.';
+END CATCH;
+
+grant execute on insertarAdministrador TO Tomas
+BEGIN TRANSACTION;
+BEGIN TRY
+    EXECUTE AS USER = 'benn';
+    exec insertarAdministrador 'nom ape1', 'S', '19870223', 'M','2003-05-26';
+    REVERT;
+    COMMIT;
+END TRY
+BEGIN CATCH
+    ROLLBACK;
+    PRINT 'Error en la transacción. Deshaciendo cambios.';
+END CATCH;
+
 select* from auditoria_administrador;
-
-
-
-
---probar con benn antes del permiso 
---insert into administrador(apeynom,viveahi,tel,sexo,fechnac) values ('Lezana mauricio','S','3912819222','M','2003-05-26')
---exec  insertarAdministrador 'Lezana mauricio','S','3912819222','M','2003-05-26'
-grant execute on insertarAdministrador to benn 
---probar despues de el permiso 
---exec  insertarAdministrador 'Lezana mauricio','S','3912819222','M','2003-05-26'
-select * from administrador
