@@ -56,7 +56,7 @@ BEGIN
         @accion
     )
 END;
-
+--drop trigger trg_auditoria_administrador_insertar
 	go
 CREATE TRIGGER trg_auditoria_administrador_modificar
 ON administrador
@@ -100,7 +100,7 @@ BEGIN
         @accion
     )
 END;
-
+--drop trigger trg_auditoria_administrador_modificar
 	go
 CREATE TRIGGER trg_auditoria_administrador_eliminar
 ON administrador
@@ -144,7 +144,7 @@ BEGIN
         @accion
     )
 END;
-	
+--	drop trigger trg_auditoria_administrador_eliminar
 Insert into administrador(ApeyNom,viveahi,tel,sexo,fechnac) values ('nombre apellido1', 'S', '19870223', 'M','2003-05-26');
 select* from auditoria_administrador;
 
