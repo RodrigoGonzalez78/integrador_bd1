@@ -38,7 +38,7 @@ BEGIN
         @sexo = sexo,
         @viveahi = viveahi,
         @fechaModif = GETDATE(),
-        @usuario = SYSTEM_USER,
+        @usuario = CURRENT_USER,
         @accion = 'accion insert'
     FROM
         inserted
@@ -82,7 +82,7 @@ BEGIN
         @sexo = sexo,
         @viveahi = viveahi,
         @fechaModif = GETDATE(),
-        @usuario = SYSTEM_USER,
+        @usuario = CURRENT_USER,
         @accion = 'accion modify'
     FROM
         inserted
@@ -126,7 +126,7 @@ BEGIN
         @sexo = sexo,
         @viveahi = viveahi,
         @fechaModif = GETDATE(),
-        @usuario = SYSTEM_USER,
+        @usuario = CURRENT_USER,
         @accion = 'accion delete'
     FROM
         deleted
@@ -145,13 +145,13 @@ BEGIN
     )
 END;
 
-	go
-Insert into administrador(ApeyNom,viveahi,tel,sexo,fechnac) values ('Apellido nombre', 'S', '19870223', 'M','2003-05-26');
+	
+Insert into administrador(ApeyNom,viveahi,tel,sexo,fechnac) values ('nombre apellido1', 'S', '19870223', 'M','2003-05-26');
 select* from auditoria_administrador;
 
 
-UPDATE  administrador   SET ApeyNom= 'Lezan Mauricio' where idadmin=181
+UPDATE  administrador   SET apeynom= 'Lezan Mauricio' where apeynom='nombre apellido1'
 select* from auditoria_administrador;
-
-delete from administrador where idadmin=181;
-select* from auditoria_administrador;
+select * from administrador
+delete from administrador where apeynom='Lezan Mauricio';
+select * from auditoria_administrador;
