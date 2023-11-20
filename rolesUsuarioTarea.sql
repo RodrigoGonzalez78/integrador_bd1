@@ -1,5 +1,156 @@
+--
+-- triggers
+--
+create table auditoria_administrador(
+idAdministrador int,
+apeynom varchar(50),
+tel varchar(50),
+fechnac date,
+viveahi varchar(1),
+sexo varchar (1),					     
+fechaModif datetime,
+usuario_accion varchar(100),
+accion varchar (20)
+);
+go
 
 go
+CREATE TRIGGER trg_auditoria_administrador_insertar
+ON administrador
+FOR INSERT
+AS
+BEGIN
+    DECLARE
+        @idAdministrador INT,
+        @apeynom VARCHAR(50),
+        @tel VARCHAR(50),
+        @fechnac DATE,
+        @sexo VARCHAR(1),
+        @viveahi VARCHAR(1),
+        @fechaModif DATE,
+        @usuario VARCHAR(50),
+        @accion VARCHAR(20)
+
+    SELECT
+        @idAdministrador = idadmin,
+        @apeynom = ApeyNom,
+        @tel = tel,
+        @fechnac = fechnac,
+        @sexo = sexo,
+        @viveahi = viveahi,
+        @fechaModif = GETDATE(),
+        @usuario = CURRENT_USER,
+        @accion = 'accion insert'
+    FROM
+        inserted
+
+    INSERT INTO auditoria_administrador
+    VALUES (
+        @idAdministrador,
+        @apeynom,
+        @tel,
+        @fechnac,
+        @sexo,
+        @viveahi,
+        @fechaModif,
+        @usuario,
+        @accion
+    )
+END;
+
+	go
+CREATE TRIGGER trg_auditoria_administrador_modificar
+ON administrador
+FOR update
+AS
+BEGIN
+    DECLARE
+        @idAdministrador INT,
+        @apeynom VARCHAR(50),
+        @tel VARCHAR(50),
+        @fechnac DATE,
+        @sexo VARCHAR(1),
+        @viveahi VARCHAR(1),
+        @fechaModif DATE,
+        @usuario VARCHAR(50),
+        @accion VARCHAR(20)
+
+    SELECT
+        @idAdministrador = idadmin,
+        @apeynom = ApeyNom,
+        @tel = tel,
+        @fechnac = fechnac,
+        @sexo = sexo,
+        @viveahi = viveahi,
+        @fechaModif = GETDATE(),
+        @usuario = CURRENT_USER,
+        @accion = 'accion modify'
+    FROM
+        inserted
+
+    INSERT INTO auditoria_administrador
+    VALUES (
+        @idAdministrador,
+        @apeynom,
+        @tel,
+        @fechnac,
+        @sexo,
+        @viveahi,
+        @fechaModif,
+        @usuario,
+        @accion
+    )
+END;
+
+	go
+CREATE TRIGGER trg_auditoria_administrador_eliminar
+ON administrador
+FOR delete
+AS
+BEGIN
+    DECLARE
+        @idAdministrador INT,
+        @apeynom VARCHAR(50),
+        @tel VARCHAR(50),
+        @fechnac DATE,
+        @sexo VARCHAR(1),
+        @viveahi VARCHAR(1),
+        @fechaModif DATE,
+        @usuario VARCHAR(50),
+        @accion VARCHAR(20)
+
+    SELECT
+        @idAdministrador = idadmin,
+        @apeynom = ApeyNom,
+        @tel = tel,
+        @fechnac = fechnac,
+        @sexo = sexo,
+        @viveahi = viveahi,
+        @fechaModif = GETDATE(),
+        @usuario = CURRENT_USER,
+        @accion = 'accion delete'
+    FROM
+        deleted
+
+    INSERT INTO auditoria_administrador
+    VALUES (
+        @idAdministrador,
+        @apeynom,
+        @tel,
+        @fechnac,
+        @sexo,
+        @viveahi,
+        @fechaModif,
+        @usuario,
+        @accion
+    )
+END;
+
+--
+--triggers
+--
+go
+	
 create login benn with password='Password123';
 create login artur with password='Password123';
 
@@ -23,6 +174,12 @@ begin
 	insert into administrador(apeynom,viveahi,tel,sexo,fechnac)
 	values (@apeynom,@viveahi,@tel,@s,@nacimiento);
 end
+	
+exec insertarAdministrador 'nombre apellido1', 'S', '19870223', 'M','2003-05-26';
+select* from auditoria_administrador;
+
+
+
 
 --probar con benn antes del permiso 
 --insert into administrador(apeynom,viveahi,tel,sexo,fechnac) values ('Lezana mauricio','S','3912819222','M','2003-05-26')
