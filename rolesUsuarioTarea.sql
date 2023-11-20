@@ -159,7 +159,7 @@ create user benn for login benn
 create user artur for login artur
 --asignamos roles a los usuarios
 alter role db_datareader add member benn
-alter role db_ddladmin add artur
+alter role db_ddladmin add member artur
 
 go
 -- creamos el procedimiento insertarAdministrador
