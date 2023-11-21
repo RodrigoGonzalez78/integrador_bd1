@@ -194,10 +194,10 @@ END CATCH;
 REVERT;
 go
 
-grant execute on insertarAdministrador TO benn
+grant execute on insertarAdministrador TO Tomas
 BEGIN TRANSACTION;
 BEGIN TRY
-	EXECUTE AS USER = 'benn';
+	EXECUTE AS USER = 'Tomas';
     exec insertarAdministrador 'nom ape1', 'S', '19870223', 'M','2003-05-26';
        COMMIT;
 
