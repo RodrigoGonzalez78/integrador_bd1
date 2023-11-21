@@ -209,3 +209,15 @@ BEGIN CATCH
 END CATCH;
 REVERT;
 select* from auditoria_administrador
+
+-- scrit para hacer drop  y poder volver a ejecutar
+-- DROP TRIGGER trg_auditoria_administrador_insertar;
+-- DROP TRIGGER trg_auditoria_administrador_modificar;
+-- DROP TRIGGER trg_auditoria_administrador_eliminar;
+-- DROP TABLE auditoria_administrador;
+-- DROP LOGIN benn;
+-- DROP LOGIN artur;
+-- DROP USER benn;
+-- DROP USER artur;
+-- DROP USER Tomas;
+-- DROP PROCEDURE insertarAdministrador;
