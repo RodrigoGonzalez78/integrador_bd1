@@ -175,31 +175,37 @@ begin
 	values (@apeynom,@viveahi,@tel,@s,@nacimiento);
 end
 	
+
+GO
 Create User Tomas without login
 alter role [db_datareader] add member Tomas
 BEGIN TRANSACTION;
-BEGIN TRY
-    EXECUTE AS USER = 'Tomas';
+BEGIN TRY  
+	   EXECUTE AS USER = 'Tomas'; 
     exec insertarAdministrador 'nom ape1', 'S', '19870223', 'M','2003-05-26';
-    REVERT;
-    COMMIT;
+      COMMIT;
+
+
 END TRY
 BEGIN CATCH
     ROLLBACK;
     PRINT 'Error en la transacción. Deshaciendo cambios.';
 END CATCH;
+REVERT;
+go
 
-grant execute on insertarAdministrador TO Tomas
+grant execute on insertarAdministrador TO benn
 BEGIN TRANSACTION;
 BEGIN TRY
-    EXECUTE AS USER = 'benn';
+	EXECUTE AS USER = 'benn';
     exec insertarAdministrador 'nom ape1', 'S', '19870223', 'M','2003-05-26';
-    REVERT;
-    COMMIT;
+       COMMIT;
+
+
 END TRY
 BEGIN CATCH
     ROLLBACK;
     PRINT 'Error en la transacción. Deshaciendo cambios.';
 END CATCH;
-
-select* from auditoria_administrador;
+REVERT;
+select* from auditoria_administrador
